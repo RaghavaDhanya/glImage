@@ -17,13 +17,19 @@
 
 using namespace std;
 
-int WIDTH=640;
+int WIDTH=640; // window width & height
 int HEIGHT=480;
-vector <unsigned char> image;
-unsigned imageWidth=250;
+vector <unsigned char> image; // storage for image(pixel array)
+unsigned imageWidth=250;  // image width and height
 unsigned imageHeight=100;
-const char* imageName="example.png";
+const char* imageName="example.png"; //image filename
 
+/** OpenGL seems to draw images vertically flipped
+        this function inverts our data so that it displays correctly
+        @param img is our image data vector
+        @param width is our image width
+        @param height is our image height
+*/
 void invert(vector<unsigned char> &img,const unsigned width,const unsigned height)
 {
     unsigned char *imageptr = &img[0];
@@ -45,8 +51,12 @@ void invert(vector<unsigned char> &img,const unsigned width,const unsigned heigh
         }
     }
 }
+/**
+Load image into memory
+*/
 void loadImage()
 {
+    //use lodepng decode to decode image
     int error;
     if((error=lodepng::decode(image,imageWidth,imageHeight,imageName)))
     {
@@ -75,7 +85,9 @@ static void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
-    glRasterPos2i(WIDTH/2-(imageWidth/2),HEIGHT/2-(imageHeight/2));
+    // positioning image at center
+    glRasterPos2i(WIDTH/2-(imageWidth/2),HEIGHT/2-(imageHeight/2)); 
+    //draw the pixel array
     glDrawPixels(imageWidth,imageHeight, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
     glPopMatrix();
     glutSwapBuffers();
@@ -87,6 +99,7 @@ static void idle(void)
 }
 int main(int argc, char *argv[])
 {
+    //load image to memory
     loadImage();
     glutInit(&argc, argv);
     glutInitWindowSize(WIDTH,HEIGHT);
