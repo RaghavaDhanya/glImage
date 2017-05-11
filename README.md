@@ -7,6 +7,7 @@ here is the link to [lodepng](http://lodev.org/lodepng/)
  
 ### Prerequisites
 * freeglut
+
 you can install it in ubuntu using
 ```
 sudo apt-get freeglut3-dev
