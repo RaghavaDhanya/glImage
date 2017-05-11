@@ -20,8 +20,8 @@ using namespace std;
 int WIDTH=640; // window width & height
 int HEIGHT=480;
 vector <unsigned char> image; // storage for image(pixel array)
-unsigned imageWidth=250;  // image width and height
-unsigned imageHeight=100;
+unsigned imageWidth;  // image width and height
+unsigned imageHeight;
 const char* imageName="example.png"; //image filename
 
 /** OpenGL seems to draw images vertically flipped
@@ -86,7 +86,7 @@ static void display(void)
     glLoadIdentity();
     glPushMatrix();
     // positioning image at center
-    glRasterPos2i(WIDTH/2-(imageWidth/2),HEIGHT/2-(imageHeight/2)); 
+    glRasterPos2i(WIDTH/2-(imageWidth/2),HEIGHT/2-(imageHeight/2));
     //draw the pixel array
     glDrawPixels(imageWidth,imageHeight, GL_RGBA, GL_UNSIGNED_BYTE, &image[0]);
     glPopMatrix();
